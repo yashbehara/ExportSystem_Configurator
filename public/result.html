@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export System Result</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+        .card-body {
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+        .code-block {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            margin-top: 10px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        .code-title {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #343a40;
+        }
+        .step-title {
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #343a40;
+        }
+        .alert-custom {
+            border-radius: 0.25rem;
+            margin-top: 1rem;
+        }
+        .card-body p {
+            font-size: 1.1rem;
+        }
+        .step-icon {
+            color: #007bff;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mb-4">Export System Configuration Result</h1>
+
+    <!-- Documentation Section -->
+    <div class="card mb-4 shadow-lg">
+        <div class="card-header">
+            <i class="fas fa-book"></i> Documentation
+        </div>
+        <div class="card-body">
+            <!-- Step 1 -->
+            <div class="alert alert-info alert-custom">
+                <h4 class="step-title"><i class="fas fa-check-circle step-icon"></i> Step 1: Update the following tables using the SQL queries given below:</h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item">1. SysExportTargetSystem</li>
+                    <li class="list-group-item">2. SysExportDataType</li>
+                    <li class="list-group-item">3. SysExportFormat</li>
+                    <li class="list-group-item">4. ExportFormat</li>
+                </ul>
+                <div class="code-title">SQL Queries</div>
+                <pre class="code-block"><code id="generatedSQLSysExportTargetSystem"></code></pre>
+                <pre class="code-block"><code id="generatedSQLSysExportFormat"></code></pre>
+                <pre class="code-block"><code id="generatedSQLExportFormat"></code></pre>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="alert alert-warning alert-custom">
+                <h4 class="step-title"><i class="fas fa-file-alt step-icon"></i> Step 2: Create an SQL file</h4>
+                <p>Create an SQL file in the <strong>Migrations &rarr; Stored Procedures</strong> folder and write the SQL Query to fetch data from the database.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="alert alert-success alert-custom">
+                <h4 class="step-title"><i class="fas fa-download step-icon"></i> Step 3: Run the Export System</h4>
+                <p>After running the export system, download the resulting file.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch queries from localStorage
+        const generatedSQLSysExportTargetSystem = localStorage.getItem('generatedSQLSysExportTargetSystem');
+        const generatedSQLSysExportFormat = localStorage.getItem('generatedSQLSysExportFormat');
+        const generatedSQLExportFormat = localStorage.getItem('generatedSQLExportFormat');
+
+        // Populate the result page with queries
+        document.getElementById('generatedSQLSysExportTargetSystem').textContent = generatedSQLSysExportTargetSystem || "Not a new export, hence no changes are needed for SysExportTargetSystem Table";
+        document.getElementById('generatedSQLSysExportFormat').textContent = generatedSQLSysExportFormat || "No query found.";
+        document.getElementById('generatedSQLExportFormat').textContent = generatedSQLExportFormat || "No query found.";
+    });
+</script>
+</body>
+</html>

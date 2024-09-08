@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exceptions Report Setup</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+        .card-body {
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+        .code-block {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            margin-top: 10px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        .code-title {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #343a40;
+        }
+        .step-title {
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #343a40;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mb-4">Exceptions Report Setup</h1>
+
+    <!-- Report Setup Instructions Card -->
+    <div class="card mb-4 shadow-lg">
+        <div class="card-header">
+            <i class="fas fa-file-alt"></i> Report Setup Instructions
+        </div>
+        <div class="card-body">
+            <div class="step-title">1. Update the data.json and Handlers</div>
+            <p>Make sure to update the <code>data.json</code> file from the <code>js-config</code> repository with the new configurations. Update or create new templates in the handlers accordingly.</p>
+
+            <div class="step-title">2. Create a New Stored Procedure</div>
+            <p>Create a new stored procedure in the <code>migrations</code> folder to generate the query required for the report. Ensure it's part of the <code>risckast-repo</code>.</p>
+
+            <div class="step-title">3. Add Routes and Services</div>
+            <ul>
+                <li>Define new routes to handle the request and response between the stored procedure and the application.</li>
+                <li>Add a route for the newly created <code>jsReportId</code>.</li>
+                <li>Ensure services are properly set up to process the incoming and outgoing data for the report.</li>
+            </ul>
+
+            <div class="step-title">4. Update Config in the Database</div>
+            <p>Follow these steps to ensure the report is available for a client in the database:</p>
+            <ul>
+                <li>Create an entry in the <code>ReportType</code> table.</li>
+                <li>Add a record in the <code>Report</code> table for the client companies.</li>
+                <li>Update the <code>ExportFormat</code> table, setting the <code>payrollExceptionReportId</code> for the corresponding company.</li>
+            </ul>
+
+            <div class="code-title">SQL Queries for Step 4:</div>
+
+            <div class="code-block">
+                <p><strong>1. Find Tenant and Company Info:</strong></p>
+                <pre><code>select * from Tenant;
+select * from OrgEntity where tenantId = 52;
+                </code></pre>
+
+                <p><strong>2. Insert Record into ReportType:</strong></p>
+                <pre><code>insert into ReportType
+(reportTypeKey, reportTypeName, reportTypeDescription, jsReportShortId, reportURL, reportOptions, reportNamingStructure, updated_by)
+values ('pyException_MCqf5r2eDy', 'Payroll Exception Report', 'Custom Report for payroll exceptions', 'Z4XJwDTxYW', '/reports/field/timecards/custom/MCqf5r2eDy/payroll-exception', '{}', '[{"type": "string", "value": "GeneralException"}, {"type": "field", "value": "weekEndDateKey"}]', 'whitney');
+                </code></pre>
+
+                <p><strong>3. Insert Record into Report:</strong></p>
+                <pre><code>insert into Report 
+(tenantId, orgEntityId, applicationId, reportName, reportDescription, reportTypeId, updated_by)
+values (52, 308, 5, 'General Exception Report', 'Report for exceptions', 42, 'whitney');
+                </code></pre>
+
+                <p><strong>4. Update ExportFormat:</strong></p>
+                <pre><code>update ExportFormat
+set payrollExceptionReportId = 2690
+where id = 124;
+                </code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

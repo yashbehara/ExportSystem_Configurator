@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export System Configuration</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .card-header {
+            background-color: #343a40;
+            color: #fff;
+            font-size: 1.5rem;
+            padding: 1rem;
+        }
+        .card-body {
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+        .section-heading {
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-check-inline {
+            margin-right: 15px;
+        }
+        .btn-primary {
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        .btn-primary-custom {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary-custom:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .custom-section {
+            display: none; /* Initially hidden */
+            transition: max-height 0.5s ease-out; /* Smooth sliding effect */
+            overflow: hidden;
+        }
+        .custom-section.show {
+            display: block;
+        }
+        .form-check-input {
+            margin-right: 5px;
+        }
+        .alert-custom {
+            border-radius: 0.25rem;
+            margin-top: 1rem;
+        }
+        .step-icon {
+            color: #007bff;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mb-4">Export System Configuration</h1>
+    <form id="exportForm">
+        <!-- Section 1: Export System -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-cogs step-icon"></i> 1. Export System
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Export System:</label><br>
+                    <label class="form-check-inline">
+                        <input type="radio" name="exportSystem" value="Viewpoint" class="form-check-input"> Viewpoint
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="exportSystem" value="Sage300" class="form-check-input"> Sage300
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="exportSystem" value="Spectrum" class="form-check-input"> Spectrum
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="exportSystem" value="CMIC" class="form-check-input"> CMIC
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="exportSystem" value="Riskcast" class="form-check-input"> Riskcast
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="exportSystem" value="Dayforce" class="form-check-input"> Dayforce
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="exportSystem" value="Custom" class="form-check-input" id="customOption"> Custom
+                    </label>
+                </div>
+                <!-- New section for Custom Export System -->
+                <div id="customSection" class="custom-section">
+                    <h4 class="section-heading">New Export System</h4>
+                    <div class="form-group">
+                        <label for="exportTargetSystemKey">Export Target System Key:</label>
+                        <input type="text" id="exportTargetSystemKey" name="exportTargetSystemKey" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exportTargetSystemDescription">Export Target System Description:</label>
+                        <input type="text" id="exportTargetSystemDescription" name="exportTargetSystemDescription" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="version">Version:</label>
+                        <input type="text" id="version" name="version" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Export Format -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-file-export step-icon"></i> 2. Export Format
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exportFormatKey">Export Format Key:</label>
+                    <input type="text" id="exportFormatKey" name="exportFormatKey" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Has Other Export:</label><br>
+                    <label class="form-check-inline">
+                        <input type="radio" name="otherExport" value="true" class="form-check-input"> Yes
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="otherExport" value="false" class="form-check-input"> No
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="otherExportName">Other Export Name (if applicable):</label>
+                    <input type="text" id="otherExportName" name="otherExportName" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Has Equipment Export:</label><br>
+                    <label class="form-check-inline">
+                        <input type="radio" name="hasEquipmentExport" value="true" class="form-check-input"> Yes
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="hasEquipmentExport" value="false" class="form-check-input"> No
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="fileExtension">File Extension:</label>
+                    <input type="text" id="fileExtension" name="fileExtension" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: CSV Options -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-file-csv step-icon"></i> 3. CSV Options
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="delimiter">Delimiter:</label>
+                    <input type="text" id="delimiter" name="delimiter" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Quote:</label><br>
+                    <label class="form-check-inline">
+                        <input type="radio" name="quote" value="needed" class="form-check-input"> Needed
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="quote" value="not_needed" class="form-check-input"> Not Needed
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Header:</label><br>
+                    <label class="form-check-inline">
+                        <input type="radio" name="header" value="true" class="form-check-input"> Yes
+                    </label>
+                    <label class="form-check-inline">
+                        <input type="radio" name="header" value="false" class="form-check-input"> No
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-primary-custom">Submit</button>
+    </form>
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const customOption = document.getElementById('customOption');
+        const customSection = document.getElementById('customSection');
+        
+        // Handle radio selection for the custom option
+        document.querySelectorAll('input[name="exportSystem"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                if (customOption.checked) {
+                    customSection.style.display = 'block';
+                    setTimeout(() => {
+                        customSection.classList.add('show');
+                    }, 10);
+                } else {
+                    customSection.classList.remove('show');
+                    setTimeout(() => {
+                        customSection.style.display = 'none';
+                    }, 500);
+                }
+            });
+        });
+
+        // Handle form submission
+        document.getElementById('exportForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            try {
+                // Send data to server
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Store results in localStorage
+                    localStorage.setItem('generatedDocumentation', result.documentation.trim());
+                    localStorage.setItem('generatedSQLExportFormat', result.sqlQuery.trim());
+                    localStorage.setItem('generatedSQLSysExportFormat', result.sysExportFormatQuery.trim());
+                    localStorage.setItem('generatedSQLSysExportTargetSystem', result.sysExportTargetSystemQuery.trim());
+
+                    // Redirect to result page
+                    window.location.href = 'result.html';
+                } else {
+                    console.error('Error:', result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
